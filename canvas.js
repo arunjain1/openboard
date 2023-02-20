@@ -44,6 +44,8 @@ canvas.addEventListener("mouseup", (e) => {
   let url = canvas.toDataURL();
   undoRedoData.push(url);
   track = undoRedoData.length - 1;
+  console.log(track);
+  // console.log(undoRedoData);
 });
 function beginPath(strokeObj) {
   tool.beginPath();
@@ -100,6 +102,7 @@ undo.addEventListener("click", (e) => {
     trackValue: track,
     undoRedoData,
   };
+  console.log(track);
   undoredoCanvas(trackObj);
 });
 redo.addEventListener("click", (e) => {
@@ -115,13 +118,15 @@ redo.addEventListener("click", (e) => {
 function undoredoCanvas(trackObj) {
   track = trackObj.trackValue;
   undoRedoData = trackObj.undoRedoData;
-
+  tool.clearRect(0, 0, canvas.width, canvas.height);
   let url = undoRedoData[track];
+  console.log(url);
   let img = new Image();
   img.src = url;
   img.onload = (e) => {
     tool.drawImage(img, 0, 0, canvas.width, canvas.height);
   };
+  console.log(`action done`);
 }
 pointer.addEventListener("click", (e) => {
   drawFlag = false;
